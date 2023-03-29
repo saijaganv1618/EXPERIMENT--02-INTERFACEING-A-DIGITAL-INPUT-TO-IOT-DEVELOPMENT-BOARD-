@@ -1,41 +1,17 @@
-# EXPERIMENT-01-INTERFACING-A-DIGITAL-OUTPUT-TO-IOT-DEVELOPMENT-BOARD
+# EXPERIMENT--02-INTERFACING-A-DIGITAL-INPUT-TO-IOT-DEVELOPMENT-BOARD-
+ 
 
-~~~
-Name   : H.Syed Abdul Wasih
-Reg No : 212221240057
-Date   : 23/03/2023
-~~~
-## Aim: To Interface a Digital output (LED) to ARM IOT development board and write a  program to blink an led 
+## Aim: To Interface a Digital Input  (IR pair ) to ARM IOT development board and write a  program to obtain  the data 
 ## Components required: STM32 CUBE IDE, ARM IOT development board,  STM programmer tool.
 ## Theory 
 The full form of an ARM is an advanced reduced instruction set computer (RISC) machine, and it is a 32-bit processor architecture expanded by ARM holdings. The applications of an ARM processor include several microcontrollers as well as processors. The architecture of an ARM processor was licensed by many corporations for designing ARM processor-based SoC products and CPUs. This allows the corporations to manufacture their products using ARM architecture. Likewise, all main semiconductor companies will make ARM-based SOCs such as Samsung, Atmel, TI etc.
 
-What is an ARM7 Processor?
-ARM7 processor is commonly used in embedded system applications. Also, it is a balance among classic as well as new-Cortex sequence. This processor is tremendous in finding the resources existing on the internet with excellence documentation offered by NXP Semiconductors. It suits completely for an apprentice to obtain in detail hardware & software design implementation.
-LPC2148 Microcontroller
- The LPC2148 microcontroller is designed by Philips (NXP Semiconductor) with several in-built features & peripherals. Due to these reasons, it will make more reliable as well as the efficient option for an application developer. LPC2148 is a 16-bit or 32-bit microcontroller based on ARM7 family.
-Features of LPC2148
-The main features of LPC2148 include the following.
-•	The LPC2148 is a 16 bit or 32 bit ARM7 family based microcontroller and available in a small LQFP64 package.
-•	ISP (in system programming) or IAP (in application programming) using on-chip boot loader software.
-•	On-chip static RAM is 8 kB-40 kB, on-chip flash memory is 32 kB-512 kB, the wide interface is 128 bit, or accelerator allows 60 MHz high-speed operation.
-•	It takes 400 milliseconds time for erasing the data in full chip and 1 millisecond time for 256 bytes of programming.
-•	Embedded Trace interfaces and Embedded ICE RT offers real-time debugging with high-speed tracing of instruction execution and on-chip Real Monitor software.
-•	It has 2 kB of endpoint RAM and USB 2.0 full speed device controller. Furthermore, this microcontroller offers 8kB on-chip RAM nearby to USB with DMA.
-•	One or two 10-bit ADCs offer 6 or 14 analogs i/ps with low conversion time as 2.44 μs/ channel.
-•	Only 10 bit DAC offers changeable analog o/p.
-•	External event counter/32 bit timers-2, PWM unit, & watchdog.
-•	Low power RTC (real time clock) & 32 kHz clock input.
-•	Several serial interfaces like two 16C550 UARTs, two I2C-buses with 400 kbit/s speed.
-•	5 volts tolerant quick general purpose Input/output pins in a small LQFP64 package.
-•	Outside interrupt pins-21.
-•	60 MHz of utmost CPU CLK-clock obtainable from the programmable-on-chip phase locked loop by resolving time is 100 μs.
-•	The incorporated oscillator on the chip will work by an exterior crystal that ranges from 1 MHz-25 MHz
-•	The modes for power-conserving mainly comprise idle & power down.
-•	For extra power optimization, there are individual enable or disable of peripheral functions and peripheral CLK scaling.
  
+ # IR pair 
  
+ ![image](https://user-images.githubusercontent.com/36288975/227598600-730748bf-9884-4a33-95bf-a1fbfde518ed.png)
 
+ IR technology is used in a wide range of wireless applications which includes remote controls and sensing. The infrared part in the electromagnetic spectrum can be separated into three main regions: near IR, mid-IR & far IR. The wavelengths of these three regions vary based on the application. For the near IR region, the wavelength ranges from 700 nm- 1400 nm, the wavelength of the mid-IR region ranges from 1400 nm – 3000 nm & finally for the far IR region, the wavelength ranges from 3000 nm – 1 mm.The near IR region is used on fiber optic & IR sensors, the mid-IR region is used for heat sensing and the far IR region is used in thermal imaging. The range of frequency for IR is maximum as compared to microwave and minimum than visible light.  
 ## Procedure:
  1. click on STM 32 CUBE IDE, the following screen will appear 
  ![image](https://user-images.githubusercontent.com/36288975/226189166-ac10578c-c059-40e7-8b80-9f84f64bf088.png)
@@ -73,12 +49,23 @@ The main features of LPC2148 include the following.
 11. click on debug option 
 ![image](https://user-images.githubusercontent.com/36288975/226189625-37daa9a3-62e9-42b5-a5ce-2ac63345905b.png)
 
+12. connect the  iot board to power supply and usb 
 
-12. connect the stm nucleo board and click on run 
-![image](https://user-images.githubusercontent.com/36288975/226189649-b5dff389-91df-4eca-b84a-1127c6562637.png)
+13. After connecting open the STM cube programmer 
+![image](https://user-images.githubusercontent.com/36288975/227599356-9c465b7e-6bd0-436b-b4e8-742ed25e06ce.png)
+
+14. click on UART and click on connect 
+![image](https://user-images.githubusercontent.com/36288975/227599458-26976d4a-f2d4-49f0-a49f-31f46eb15761.png)
+
+15. once it is connected , click on Erasing and programming option 
+![image](https://user-images.githubusercontent.com/36288975/227599531-f03d277e-440f-4f8a-8875-97f8e8058c71.png)
+
+16. flash the bin or hex file as shown below by switching the switch to flash mode 
+
+![image](https://user-images.githubusercontent.com/36288975/227599656-dc4a635f-b5f1-44c8-84c5-ee0a592fa184.png)
 
 
-
+17. check for execution of the output by switching the board to run mode 
 
 
 
@@ -104,7 +91,9 @@ The main features of LPC2148 include the following.
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "stdio.h"
+#include "stdbool.h"
+bool irsensor;
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -134,7 +123,6 @@ The main features of LPC2148 include the following.
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-void led();
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -180,10 +168,18 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  led();
-    /* USER CODE END WHILE */
+      irsensor=HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_4);
+      if(irsensor==0){
+    	  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET);
+    	  HAL_Delay(1000);
+    	  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
+    	  HAL_Delay(1000);
 
-    /* USER CODE BEGIN 3 */
+
+      }
+      else{
+    	  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
+      }
   }
   /* USER CODE END 3 */
 }
@@ -254,6 +250,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PA4 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
@@ -276,14 +278,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-void led()
-{
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-	  HAL_Delay(3000);//3 seconds as milliseconds
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
-	  HAL_Delay(3000);
 
-}
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
@@ -305,11 +300,9 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 ## Output  :
  
-### LED Off:
-![1](https://user-images.githubusercontent.com/91781810/227558223-0c10c44e-892e-480a-957f-43c91c6b641c.jpeg)
+ ![1](https://user-images.githubusercontent.com/91781810/228415358-7073a8b5-74c8-4deb-ba19-6fb52b9f7a7c.jpeg)
 
-### LED On:
- ![2](https://user-images.githubusercontent.com/91781810/227549939-33adcdf4-8155-4cbb-8a77-91d2a359b50d.jpeg)
-
+ ![2](https://user-images.githubusercontent.com/91781810/228415405-a11fa02c-2310-4669-a5bd-bb9afb5ce433.jpeg)
+ 
 ## Result :
-Interfacing a digital output with ARM microcontroller based IOT development is executed and the results are verified.
+Interfacing a digital Input (ir pair) with ARM microcontroller based IOT development is executed and the results are verified.
